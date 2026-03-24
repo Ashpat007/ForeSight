@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start:backend": "npm start --prefix sightback",
+    "start:frontend": "npm run dev --prefix sightfront/sight-app",
+    "install:all": "npm install && npm install --prefix sightback && npm install --prefix sightfront/sight-app"
+  },
+  "dependencies": {
+    "@shadcn/ui": "^0.0.4",
+    "recharts": "^2.15.2"
+  }
+}

@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode for Tailwind 4 */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui;
+  --color-brand-primary: #6366f1;
+  --color-brand-secondary: #a855f7;
+}
+
+/* Enable class-based dark mode */
+@layer utilities {
+    .glass {
+        @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border border-white/20 dark:border-gray-800/30 shadow-xl;
+    }
+    
+    .glass-card {
+        @apply bg-white/80 dark:bg-gray-800/40 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/30 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300;
+    }
+
+    .btn-gradient {
+        @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500;
+    }
+
+    html {
+        scrollbar-color: #9ca3af #f3f4f6; /* light mode colors */
+        @apply antialiased;
+      }
+      
+      html.dark {
+        scrollbar-color: #4b5563 #1f2937; /* dark mode colors */
+      }
+    
+      /* For WebKit browsers (Chrome, Safari) */
+      ::-webkit-scrollbar {
+        @apply w-2;
+      }
+    
+      ::-webkit-scrollbar-track {
+        @apply bg-gray-50 dark:bg-gray-900;
+      }
+    
+      ::-webkit-scrollbar-thumb {
+        @apply bg-gray-300 dark:bg-gray-700 rounded-full hover:bg-gray-400 dark:hover:bg-gray-600;
+      }
+}
