@@ -1,17 +1,15 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const path = require("path");
 
-// Load env vars BEFORE requiring routes
-dotenv.config({ path: "./local.env" });
+// Load env vars BEFORE requiring routes — uses standard .env file
+dotenv.config();
 
 const cors = require("cors");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes/authRoutes"); 
+const authRoutes = require("./routes/authRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const dataRoutes = require("./routes/dataRoutes");
 const forecastRoutes = require("./routes/forecastRoutes");
-const { resetData } = require("./utils/dataStore");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,21 +20,23 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
-    process.exit(1); // Exit if DB connection fails
+    process.exit(1);
   });
 
 // ===== Middleware =====
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // ===== Routes =====
-app.use("/api/auth", authRoutes); // Use the auth routes for login and registration
-app.use("/api/upload", uploadRoutes); // Use the upload routes for file handling (CSV upload)
-app.use("/api/forecast", forecastRoutes); // AI Forecasting route
-app.use("/api", dataRoutes); // Add this line to use the new data route
-
-// ===== Optional: Clear in-memory data on server start =====
-resetData();  // Only call this if you want to reset the in-memory data each time the server starts
+app.use("/api/auth", authRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/forecast", forecastRoutes);
+app.use("/api", dataRoutes);
 
 // ===== Server Start =====
 app.listen(PORT, () => {

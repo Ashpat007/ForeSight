@@ -1,8 +1,39 @@
+# Dependencies
 node_modules/
-.env
-*.env
-*.csv
-uploads/
 sightback/node_modules/
 sightfront/node_modules/
+
+# Environment variables — NEVER commit these
+.env
+*.env
+.env.*
+!.env.example
+!**/.env.example
+local.env
+sightback/local.env
+sightback/.env
+
+# Large data / test files
+*.csv
+*.json.bak
+
+# Build outputs
+dist/
+build/
+
+# Uploaded files (temp storage)
+uploads/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs & debug
+*.log
+npm-debug.log*
+eslint_report.json
+sightfront/sight-app/eslint_report.json
+
+# Editor
+.vscode/
+.idea/
